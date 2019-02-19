@@ -34,4 +34,4 @@ function gap(g, m, n) {
     return result
 }
 
-console.log(gap(5, 11, 20));
+console.log(gap(7, 11, 20));
