@@ -6,21 +6,22 @@
 // returns newly created object
 
 Object.create = function (prototype, properties) {
-
+    console.log(properties);
     if (!prototype && prototype !== null || !prototype instanceof Object) {
         throw new TypeError()
     }
     let newObj = {};
     newObj.__proto__ = prototype;
 
-    if (properties instanceof Object) {
+    if (properties !== undefined) {
+
         Object.defineProperties(newObj, properties)
     }
     return newObj
 };
 
 
-var citizen = {
+let citizen = {
     sleep: function () {
         return "zzZ...";
     },
@@ -29,15 +30,12 @@ var citizen = {
     }
 };
 
-var veteran = Object.create(citizen, {
+let veteran = Object.create(citizen, {
     panic: {
         value: function () {
             return "SNAFU";
         }
     }
 });
-//console.log(veteran instanceof citizen);
+console.log(veteran.sleep());
 console.log(veteran.panic());
-
-let veter = Object.create(citizen, {rpo: {'panic': 13}});
-console.log(veter.rpo)
