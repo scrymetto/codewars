@@ -5,11 +5,13 @@ class Dictionary {
     }
 
     newEntry(key, value) {
-        // your code
+        this.key = key;
+        this.value = value;
     }
 
     look(key) {
-        // your code
+        if (this.key = key)
+        return this.value
     }
 }
 
