@@ -1,22 +1,29 @@
 class Dictionary {
-    constructor(key, value) {
-        this.key = key;
-        this.value = value;
+
+    constructor() {
+        this.words = [];
     }
 
     newEntry(key, value) {
-        this.key = key;
-        this.value = value;
+        let word = {};
+        word.key = key;
+        word.value = value;
+        this.words.push(word)
     }
 
     look(key) {
-        if (this.key = key)
-        return this.value
+        for (let i = 0; i<this.words.length; i++){
+            if (this.words[i].key===key) {
+                return this.words[i].value;
+            }
+        }
+        return `Can\'t find entry for ${key}`
     }
 }
 
 let d = new Dictionary();
 
 d.newEntry("Apple", "A fruit that grows on trees");
+d.newEntry("dfgn", "dnfgn");
 console.log(d.look("Apple"));
-console.log(d.look("Banana"));
+console.log(d.look("dfgn"));
