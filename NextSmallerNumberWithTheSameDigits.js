@@ -47,7 +47,6 @@ function nextSmaller(n) {
             previousValue > currentValue ? previousValue : currentValue)
     } else return -1
 }
-
 console.log(nextSmaller(8455));
 
 
