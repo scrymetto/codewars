@@ -1,23 +1,52 @@
 function runoff(voters) {
 
-    let result = {};
+    let curVoters = voters;
 
-    for (let i = 0; i < voters.length; i++) {
-        let ballot = voters[i].reverse();
-        ballot.forEach((value, index) => {
-            result[value] ? result[value] += index : result[value] = 1;
-        })
+    function calcVote(arr) {
+        let result = {};
+        arr[0].forEach(value => {
+            result[value] = 0;
+        });
+        for (let i = 0; i < arr.length; i++) {
+            let winner1 = arr[i][0];
+            result[winner1] ? result[winner1]++ : result[winner1] = 1;
+        }
+        return result
     }
 
-    console.log(result)
+    let result = calcVote(curVoters);
+    console.log(result);
+
     let winner;
     let max = 0;
+    let looser;
+    let min = 0;
     for (let key in result) {
         if (result[key] > max) {
-            max = result[key];
-            winner = key
+            winner = key;
+            max = result[key]
+        } else {
+            if (result[key] <= min) {
+                looser = key;
+                min = result[key]
+            }
         }
     }
+
+    if (max < (curVoters.length / 2)) {
+        curVoters = curVoters.map(arr => {
+            let ind = arr.indexOf(looser);
+            arr.splice(ind, 1);
+            return arr
+        })
+    }
+    console.log(curVoters);
+
+
+    result = calcVote(curVoters)
+    console.log(result);
+
+
     return winner
 }
 
