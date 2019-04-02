@@ -15,39 +15,64 @@ function runoff(voters) {
         return result
     }
 
-    function findWinner(obj) {
-        let winner;
-        let max = 0;
-        let looser = [];
-        let min = curVoters.length / 2;
-        for (let key in obj) {
-            let sign = obj[key];
-            if (sign > max) {
-                winner = key;
-                max = sign
-            } else if (sign <= min) {
-                let arr = looser[sign];
-                if (!looser[sign]){
-                    looser[sign] = [];
-                }
-                looser[sign].push(key);
-                min = sign
+    function findTie(obj) {
+        let tie = false;
+        let val = Object.values(obj);
+        let first = val[0];
+        for (let i = 1; i < val.length; i++) {
+            if (val[i] !== first) {
+                tie = false;
+                break;
+            } else {
+                tie = true
             }
         }
-        console.log(looser)
-        looser = looser.map(el =>{
+        return tie
+    }
 
-        })
+    function findWinner(obj) {
+        let tie = findTie(obj);
+        if (tie) {
+            return [true, 'undefined']
+        } else {
+            let winner;
+            let max = 0;
+            let looser = [];
+            let min = curVoters.length / 2;
+            for (let key in obj) {
+                let sign = obj[key];
+                if (sign > max) {
+                    winner = key;
+                    max = sign
+                } else if (sign <= min) {
+                    let arr = looser[sign];
+                    if (!looser[sign]) {
+                        looser[sign] = [];
+                    }
+                    looser[sign].push(key);
+                    min = sign
+                }
+            }
+            let loos;
+            for (let i = 0; i < looser.length; i++) {
+                if (looser[i]) {
+                    loos = looser[i];
+                    break
+                }
+            }
 
-        if (max < (curVoters.length / 2)) {
-            curVoters = curVoters.map(arr => {
-                let ind = arr.indexOf(looser);
-                arr.splice(ind, 1);
-                return arr
-            });
-            console.log(curVoters)
-            return [false, curVoters]
-        } else return [true, winner]
+            if (max < (curVoters.length / 2)) {
+                loos.forEach(el => {
+                    curVoters = curVoters.map(arr => {
+                        let ind = arr.indexOf(el);
+                        arr.splice(ind, 1);
+                        return arr
+                    })
+                });
+                console.log(curVoters)
+                return [false, curVoters]
+            } else return [true, winner]
+        }
     }
 
     let result = findWinner(calcVote(curVoters));
@@ -55,10 +80,15 @@ function runoff(voters) {
         result = findWinner(calcVote(curVoters))
     }
     return result[1]
+
 }
 
-console.log(runoff([["a", "c", "d", "e", "b"],
-    ["e", "b", "d", "c", "a"],
-    ["d", "e", "c", "a", "b"],
-    ["c", "e", "d", "b", "a"],
-    ["b", "e", "a", "c", "d"]]));
+console.log(runoff(
+    [['Lex Luthor', 'Gihren Zabi', 'Frank Underwood', 'Abelt Dessler'],
+        ['Abelt Dessler', 'Gihren Zabi', 'Lex Luthor, Frank Underwood'],
+        ['Lex Luthor', 'Abelt Dessler', 'Frank Underwood', 'Gihren Zabi'],
+        ['Abelt Dessler', 'Frank Underwood', 'Gihren Zabi', 'Lex Luthor'],
+        ['Gihren Zabi', 'Frank Underwood', 'Lex Luthor', 'Abelt Dessler'],
+        ['Abelt Dessler', 'Frank Underwood', 'Gihren Zabi', 'Lex Luthor'],
+        ['Lex Luthor', 'Abelt Dessler', 'Gihren Zabi', 'Frank Underwood'],
+        ['Abelt Dessler', 'Lex Luthor', 'Frank Underwood', 'Gihren Zabi']]));
