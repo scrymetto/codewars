@@ -36,7 +36,7 @@ function runoff(voters) {
             return [true, 'undefined']
         } else {
             let winner;
-            let max = 0;
+            let max = 1;
             let looser = [];
             let min = curVoters.length / 2;
             for (let key in obj) {
@@ -61,7 +61,7 @@ function runoff(voters) {
                 }
             }
 
-            if (max < (curVoters.length / 2)) {
+            if (max <= (curVoters.length / 2)) {
                 loos.forEach(el => {
                     curVoters = curVoters.map(arr => {
                         let ind = arr.indexOf(el);
@@ -84,11 +84,9 @@ function runoff(voters) {
 }
 
 console.log(runoff(
-    [['Lex Luthor', 'Gihren Zabi', 'Frank Underwood', 'Abelt Dessler'],
-        ['Abelt Dessler', 'Gihren Zabi', 'Lex Luthor, Frank Underwood'],
-        ['Lex Luthor', 'Abelt Dessler', 'Frank Underwood', 'Gihren Zabi'],
-        ['Abelt Dessler', 'Frank Underwood', 'Gihren Zabi', 'Lex Luthor'],
-        ['Gihren Zabi', 'Frank Underwood', 'Lex Luthor', 'Abelt Dessler'],
-        ['Abelt Dessler', 'Frank Underwood', 'Gihren Zabi', 'Lex Luthor'],
-        ['Lex Luthor', 'Abelt Dessler', 'Gihren Zabi', 'Frank Underwood'],
-        ['Abelt Dessler', 'Lex Luthor', 'Frank Underwood', 'Gihren Zabi']]));
+    [['Frank Underwood', 'Drake Luft', 'Gihren Zabi', 'Abelt Dessler', 'Reinhard von Musel'],
+        ['Drake Luft', 'Frank Underwood', 'Reinhard von Musel', 'Gihren Zabi', 'Abelt Dessler'],
+        ['Gihren Zabi', 'Abelt Dessler', 'Drake Luft', 'Reinhard von Musel', 'Frank Underwood'],
+        ['Abelt Dessler', 'Gihren Zabi', 'Drake Luft', 'Frank Underwood', 'Reinhard von Musel'],
+        ['Drake Luft', 'Reinhard von Musel', 'Frank Underwood', 'Abelt Dessler', 'Gihren Zabi'],
+        ['Abelt Dessler', 'Frank Underwood', 'Drake Luft', 'Reinhard von Musel', 'Gihren Zabi']]));
