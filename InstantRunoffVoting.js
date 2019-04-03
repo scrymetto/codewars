@@ -11,7 +11,7 @@ function runoff(voters) {
             let winner1 = arr[i][0];
             result[winner1] ? result[winner1]++ : result[winner1] = 1;
         }
-        console.log(result)
+        console.log(result);
         return result
     }
 
@@ -69,7 +69,7 @@ function runoff(voters) {
                         return arr
                     })
                 });
-                console.log(curVoters)
+                console.log(curVoters);
                 return [false, curVoters]
             } else return [true, winner]
         }
