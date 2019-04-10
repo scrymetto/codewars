@@ -23,40 +23,30 @@ let theLift = function (queues, capacity) {
             })
         }
     });
-
+console.log(task)
     function up(task) {
-        let counter = 0;
-        task.forEach((val, ind) => {
-            if (counter === capacity){
-                return
-            }
-            if (val.length !== 0){
-                result.push(ind);
-                counter+=val.length;
-                val.forEach(to => {
+        for (let i = 0; i<task.length; i++){
 
-                })
-            }
-        })
-        return result
+        }
     }
 
-    function down(queues, task) {
+    function down(task) {
 
     }
 
-    console.log(up(task.up))
-
+    let cur = up(task.up)
+    result = result.concat(cur)
     result.push(0);
-    return task
+console.log(task)
+    return result
 };
 
 let queues = [
     [], // G
-    [0, 3, 4], // 1
-    [], // 2
-    [], // 3
-    [2], // 4
+    [0, 4, 3], // 1
+    [3], // 2
+    [6], // 3
+    [2,5], // 4
     [6], // 5
     [0], // 6
 ];
