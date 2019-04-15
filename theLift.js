@@ -53,6 +53,8 @@ let theLift = function (queues, capacity) {
 
                     }
                 })
+            } else {
+                newTask[i] = [];
             }
         }
         allTask.up = newTask;
@@ -64,7 +66,7 @@ let theLift = function (queues, capacity) {
         let count = 0;
         let out = [];
         let newTask = [];
-        for (let i = task.length - 1; i > 0; i--) {
+        for (let i = task.length - 1; i >= 0; i--) {
             out.forEach(el => {
                 if (el === i) {
                     curResult.push(i);
@@ -88,6 +90,8 @@ let theLift = function (queues, capacity) {
 
                     }
                 })
+            } else {
+                newTask[i] = [];
             }
         }
         allTask.down = newTask;
@@ -110,22 +114,23 @@ let theLift = function (queues, capacity) {
     do {
         let cur = up(allTask.up);
         cur.forEach(el => {
-            if (el !== result[result.length-1]){
+            if (el !== result[result.length - 1]) {
                 result.push(el)
             }
         });
         let cur1 = down((allTask.down));
         cur1.forEach(el => {
-            if (el !== result[result.length-1]){
+            if (el !== result[result.length - 1]) {
                 result.push(el)
             }
         });
+        console.log(allTask)
     } while (isEmpty(allTask));
 
     if (result[0] !== 0) {
         result.unshift(0)
     }
-    if (result.length !== 1) {
+    if (result.length !== 1 && result[result.length-1] !== 0) {
         result.push(0)
     }
     return result
@@ -133,11 +138,11 @@ let theLift = function (queues, capacity) {
 
 let queues = [
     [], // G
-    [], // 1
-    [4, 4, 4, 4], // 2
+    [0, 0, 0, 6], // 1
+    [], // 2
     [], // 3
-    [2, 2, 2, 2], // 4
-    [], // 5
+    [], // 4
+    [6, 6, 0, 0, 0, 6], // 5
     [], // 6
 ];
-console.log(theLift(queues, 2))
+console.log(theLift(queues, 5))
