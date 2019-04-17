@@ -6,24 +6,23 @@ function checkSyntax(string) {
         '<': '>',
         '[': ']',
     };
-    let closeNext = '';
-    let currentArr = [];
+    let openBrackets = [];
     for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === closeNext) {
-            currentArr.splice(currentArr.length - 1, 1);
-            closeNext = obj[currentArr[currentArr.length - 1]];
+        let currSymbol = arr[i];
+        let lastOpenBracket = openBrackets[openBrackets.length - 1];
+        if (currSymbol === obj[lastOpenBracket]) {
+            openBrackets.splice(openBrackets.length - 1, 1);
         } else {
-            if (arr[i] in obj) {
-                currentArr.push(arr[i]);
-                closeNext = obj[arr[i]]
+            if (currSymbol in obj) {
+                openBrackets.push(currSymbol);
             } else {
-                if (arr[i].search(/(})(\)) (>) (})/)) {
+                if (currSymbol.search(/(})|(\))|(>)|(])/) >= 0) {
                     return 1
                 }
             }
         }
     }
-    return 0
+    return openBrackets.length > 0 ? 1 : 0
 }
 
-console.log(checkSyntax('{((())))'))
+console.log(checkSyntax('{{(fghthm} )} '))
