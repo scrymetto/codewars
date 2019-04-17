@@ -17,10 +17,8 @@ function checkSyntax(string) {
                 currentArr.push(arr[i]);
                 closeNext = obj[arr[i]]
             } else {
-                for (let key in obj) {
-                    if (arr[i] === obj[key]) {
-                        return 1
-                    }
+                if (arr[i].search(/(})(\)) (>) (})/)) {
+                    return 1
                 }
             }
         }
@@ -28,4 +26,4 @@ function checkSyntax(string) {
     return 0
 }
 
-console.log(checkSyntax('   (      [)'))
+console.log(checkSyntax('{((())))'))
